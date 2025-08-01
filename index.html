@@ -5,18 +5,45 @@
   <title>Invoice Payment</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    .card-title { font-weight: 600; }
-    .item-label { font-weight: 500; font-size: 1.05rem; }
-    .item-row { padding: 10px 0; border-bottom: 1px solid #eee; }
-    .item-input { max-width: 120px; }
-    #totalDisplay { font-size: 1.5rem; font-weight: 600; color: #0d6efd; }
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .item-list .item-row {
+      padding: 12px 0;
+      border-bottom: 1px solid #dee2e6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .item-list .item-label {
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: #495057;
+    }
+
+    .item-input {
+      max-width: 100px;
+    }
+
+    #totalDisplay {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0d6efd;
+    }
   </style>
 </head>
-<body class="bg-light">
+<body>
   <div class="container mt-5">
-    <div class="card shadow">
+    <div class="card shadow-sm">
       <div class="card-body">
-        <h2 class="card-title text-center mb-4">Select Items & Pay with PayPal</h2>
+        <h2 class="card-title text-center mb-4">Select Items & Pay</h2>
 
         <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
           <!-- Required PayPal fields -->
@@ -26,36 +53,40 @@
           <input type="hidden" name="item_name" value="Combined Invoice Items">
           <input type="hidden" name="amount" id="paypalAmount">
 
-          <!-- Item entries -->
-          <div class="mb-4">
-            <div class="item-row d-flex justify-content-between align-items-center">
-              <span class="item-label">$0.01 item</span>
+          <!-- Styled item list -->
+          <div class="item-list mb-4">
+            <div class="item-row">
+              <div class="item-label">Spiff soft design — Item — $0.01</div>
               <input type="number" class="form-control item-input" id="qty001" min="0" value="0">
             </div>
-            <div class="item-row d-flex justify-content-between align-items-center">
-              <span class="item-label">$0.10 item</span>
+            <div class="item-row">
+              <div class="item-label">Spiff Design — Item — $0.10</div>
               <input type="number" class="form-control item-input" id="qty01" min="0" value="0">
             </div>
-            <div class="item-row d-flex justify-content-between align-items-center">
-              <span class="item-label">$1 item</span>
+            <div class="item-row">
+              <div class="item-label">CRM rush made — A minute change — $1</div>
               <input type="number" class="form-control item-input" id="qty1" min="0" value="0">
             </div>
-            <div class="item-row d-flex justify-content-between align-items-center">
-              <span class="item-label">$10 item</span>
+            <div class="item-row">
+              <div class="item-label">CRM Amendment — Making minor amendments — $10</div>
               <input type="number" class="form-control item-input" id="qty10" min="0" value="0">
             </div>
-            <div class="item-row d-flex justify-content-between align-items-center">
-              <span class="item-label">$100 item</span>
+            <div class="item-row">
+              <div class="item-label">CRM development — Intermediate — $50</div>
+              <input type="number" class="form-control item-input" id="qty50" min="0" value="0">
+            </div>
+            <div class="item-row">
+              <div class="item-label">CRM term development — Base hour rate — $100</div>
               <input type="number" class="form-control item-input" id="qty100" min="0" value="0">
             </div>
           </div>
 
           <!-- Total display -->
           <div class="text-center mb-4">
-            <div>Total: $<span id="totalDisplay">0.00</span></div>
+            <span>Total: $<span id="totalDisplay">0.00</span></span>
           </div>
 
-          <!-- Pay button -->
+          <!-- Submit button -->
           <div class="text-center">
             <button type="submit" class="btn btn-primary btn-lg">Pay with PayPal</button>
           </div>
@@ -64,21 +95,23 @@
     </div>
   </div>
 
+  <!-- JS for dynamic total -->
   <script>
     const form = document.getElementById('paypalForm');
-    const qtyFields = {
+    const qtyMap = {
       qty001: 0.01,
       qty01: 0.10,
       qty1: 1.00,
       qty10: 10.00,
+      qty50: 50.00,
       qty100: 100.00
     };
 
     form.addEventListener('input', () => {
       let total = 0;
-      for (const id in qtyFields) {
+      for (const id in qtyMap) {
         const qty = parseInt(document.getElementById(id).value) || 0;
-        total += qty * qtyFields[id];
+        total += qty * qtyMap[id];
       }
       document.getElementById('totalDisplay').textContent = total.toFixed(2);
       document.getElementById('paypalAmount').value = total.toFixed(2);
