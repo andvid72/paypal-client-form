@@ -1,25 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Client Invoice Form</title>
+  <meta charset="UTF-8">
+  <title>Invoice Payment</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <h2>Fill in your invoice details</h2>
-  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_xclick">
-    <input type="hidden" name="business" value="andres@strongcrm.com">
-    <input type="hidden" name="currency_code" value="USD">
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="card shadow">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Pay with PayPal</h2>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="andres@strongcrm.com">
+          <input type="hidden" name="currency_code" value="USD">
 
-    <label>Item Name:</label><br>
-    <input type="text" name="item_name" required><br><br>
+          <div class="mb-3">
+            <label class="form-label">Item Name</label>
+            <input type="text" name="item_name" class="form-control" required>
+          </div>
 
-    <label>Amount:</label><br>
-    <input type="number" name="amount" step="0.01" required><br><br>
+          <div class="mb-3">
+            <label class="form-label">Amount</label>
+            <input type="number" name="amount" step="0.01" class="form-control" required>
+          </div>
 
-    <label>Notes:</label><br>
-    <textarea name="custom" rows="4" cols="40"></textarea><br><br>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <textarea name="custom" class="form-control" rows="3"></textarea>
+          </div>
 
-    <input type="submit" value="Pay with PayPal">
-  </form>
+          <div class="text-center">
+            <input type="submit" value="Pay with PayPal" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
