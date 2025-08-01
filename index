@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client Invoice Form</title>
+</head>
+<body>
+  <h2>Fill in your invoice details</h2>
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="andres@strongcrm.com">
+    <input type="hidden" name="currency_code" value="USD">
+
+    <label>Item Name:</label><br>
+    <input type="text" name="item_name" required><br><br>
+
+    <label>Amount:</label><br>
+    <input type="number" name="amount" step="0.01" required><br><br>
+
+    <label>Notes:</label><br>
+    <textarea name="custom" rows="4" cols="40"></textarea><br><br>
+
+    <input type="submit" value="Pay with PayPal">
+  </form>
+</body>
+</html>
