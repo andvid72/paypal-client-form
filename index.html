@@ -4,40 +4,60 @@
   <meta charset="UTF-8">
   <title>Invoice Payment</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card-title { font-weight: 600; }
+    .item-label { font-weight: 500; font-size: 1.05rem; }
+    .item-row { padding: 10px 0; border-bottom: 1px solid #eee; }
+    .item-input { max-width: 120px; }
+    #totalDisplay { font-size: 1.5rem; font-weight: 600; color: #0d6efd; }
+  </style>
 </head>
 <body class="bg-light">
   <div class="container mt-5">
     <div class="card shadow">
       <div class="card-body">
-        <h2 class="card-title text-center mb-4">Choose Items & Pay</h2>
+        <h2 class="card-title text-center mb-4">Select Items & Pay with PayPal</h2>
 
         <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
           <!-- Required PayPal fields -->
           <input type="hidden" name="cmd" value="_xclick">
           <input type="hidden" name="business" value="andres@strongcrm.com">
           <input type="hidden" name="currency_code" value="USD">
-          <input type="hidden" name="item_name" value="Custom Invoice">
+          <input type="hidden" name="item_name" value="Combined Invoice Items">
           <input type="hidden" name="amount" id="paypalAmount">
 
-          <!-- Fixed-price item quantity selectors -->
-          <div class="mb-3">
-            <label class="form-label">Items</label>
-            <div class="row gx-2 gy-2">
-              <!-- Loop style for readability -->
-              <div class="col-md-4"><label>$0.01 × <input type="number" class="form-control" id="qty001" min="0" value="0"></label></div>
-              <div class="col-md-4"><label>$0.10 × <input type="number" class="form-control" id="qty01" min="0" value="0"></label></div>
-              <div class="col-md-4"><label>$1 × <input type="number" class="form-control" id="qty1" min="0" value="0"></label></div>
-              <div class="col-md-4"><label>$10 × <input type="number" class="form-control" id="qty10" min="0" value="0"></label></div>
-              <div class="col-md-4"><label>$100 × <input type="number" class="form-control" id="qty100" min="0" value="0"></label></div>
+          <!-- Item entries -->
+          <div class="mb-4">
+            <div class="item-row d-flex justify-content-between align-items-center">
+              <span class="item-label">$0.01 item</span>
+              <input type="number" class="form-control item-input" id="qty001" min="0" value="0">
+            </div>
+            <div class="item-row d-flex justify-content-between align-items-center">
+              <span class="item-label">$0.10 item</span>
+              <input type="number" class="form-control item-input" id="qty01" min="0" value="0">
+            </div>
+            <div class="item-row d-flex justify-content-between align-items-center">
+              <span class="item-label">$1 item</span>
+              <input type="number" class="form-control item-input" id="qty1" min="0" value="0">
+            </div>
+            <div class="item-row d-flex justify-content-between align-items-center">
+              <span class="item-label">$10 item</span>
+              <input type="number" class="form-control item-input" id="qty10" min="0" value="0">
+            </div>
+            <div class="item-row d-flex justify-content-between align-items-center">
+              <span class="item-label">$100 item</span>
+              <input type="number" class="form-control item-input" id="qty100" min="0" value="0">
             </div>
           </div>
 
-          <div class="mb-3 text-center">
-            <strong>Total: $<span id="totalDisplay">0.00</span></strong>
+          <!-- Total display -->
+          <div class="text-center mb-4">
+            <div>Total: $<span id="totalDisplay">0.00</span></div>
           </div>
 
+          <!-- Pay button -->
           <div class="text-center">
-            <button type="submit" class="btn btn-primary">Pay with PayPal</button>
+            <button type="submit" class="btn btn-primary btn-lg">Pay with PayPal</button>
           </div>
         </form>
       </div>
